@@ -1,0 +1,31 @@
+{
+  "name": "simple-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dat.gui": "^0.7.9",
+    "gsap": "^3.10.4",
+    "parcel-bundler": "^1.12.5",
+    "three": "^0.139.2",
+    "three-orbit-controls": "^82.1.0"
+  },
+  "devDependencies": {
+    "glslify-bundle": "^5.1.1",
+    "glslify-deps": "^1.3.2"
+  },
+  "browserslist": [
+    "last 1 and_chr versions",
+    "last 1 chrome versions",
+    "last 1 opera versions",
+    "last 1 ios_saf versions",
+    "last 1 safari versions"
+  ]
+}
