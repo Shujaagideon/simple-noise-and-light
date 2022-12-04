@@ -3,8 +3,9 @@ varying vec2 vUv;
 varying vec3 vPosition;
 uniform vec3 uColor1;
 uniform vec3 uColor2;
-uniform vec3 uMouse;
+uniform vec2 uMouse;
 varying float vColor;
+varying float vColor2;
 varying vec3 vNormal;
 varying float vMouseNoise;
 
@@ -94,14 +95,17 @@ void main(){
 
     float offset = incline * mix(-.25, .25, uv.y);
 
-    float noise = snoise(vec3(noisecoord.x + time * 0.1, noisecoord.y + time * 0.1, time * 0.2) * 1.3)                                                                                             ;
+    float noise = snoise(vec3(noisecoord.x + time * 0.1, noisecoord.y + time * 0.1, time * 0.2) * 1.3);
+    float noise2 = snoise(vec3(noisecoord.x + time * 0.1, noisecoord.y + time * 0.1, time * 0.2) * 2.3);
     noise = max( 0., noise);
-    vColor = noise* 1.2;
+    noise2 = max( 0., noise2);
+    vColor = noise;
+    vColor2 = noise2;
     vMouseNoise = snoise(vec3(uMouse.x + time * 0.1, uMouse.y + time * 0.1, + time * 0.1));
 
     vec2 mixture = mix(uMouse.xy, position.xy, noise);
     vec3 pos = vec3(position.x, position.y, position.z * noise * 0.2 + tilt + incline + offset);
     // pos.y += 0.1 * (sin(pos.y * 20. + time) * 0.5+ 0.5);
     
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }

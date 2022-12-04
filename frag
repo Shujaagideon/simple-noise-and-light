@@ -1,30 +1,28 @@
-//uniform float time;
-//uniform float progress;
-//uniform sampler2D uTexture;
-//uniform vec4 resolution;
-//varying vec2 vUv;
-varying vec3 vPosition;
-uniform vec3 uColor1;
-uniform vec3 uColor2;
-//uniform vec3 uMouse;
-varying float vColor;
-//varying float vColor2;
-//varying vec3 vNormal;
-//varying float vMouseNoise;
+uniform sampler2D tDiffuse;
+// uniform vec2 mouse;
+uniform vec2 resolution;
+uniform vec2 center;
+uniform vec2 uMouse;
+uniform float size;
+const float PI = 3.14159265358979;
 
+varying vec2 vUv;
+float circle2(vec2 uv, vec2 disc_center, float disc_radius, float border_size){
+    uv -= disc_center;
+    uv*=resolution;
+    float dist = sqrt(dot(uv, uv));
+    return smoothstep(disc_radius+border_size, disc_radius-border_size, dist);
+}
 
-//void main(){
- //   vec2 newUv = (vUv - vec2(0.5)) * 1. + vec2(0.5);
-//    float mouse = 1. - distance(newUv, uMouse.xy);
-  //  mouse = smoothstep( 0.85, 1., mouse);
-//    mouse = clamp(0.1, .5, mouse) * 2.8;
-
-//    vec3 color1 = mix(uColor1, uColor2, vColor2);
-//    vec3 color2 = mix(uColor1, uColor2, vColor);
-//    vec3 mo = mix(vec3(1.),color1, mouse);
-//    vec3 fin = mix(color1, color2, mo);
-//    gl_FragColor = vec4(vec3(fin), 1.);
-//}
+void main() {
+    vec2 st = vUv;
+    float gradientSize = resolution.x * (size + .18);
+    float pct = circle2(st, uMouse, gradientSize, gradientSize - 0.2);
+    vec4 transparent = vec4(0.0, 0.0, 0.0, 0.0);
+    vec4 texel = texture2D( tDiffuse, vUv );
+    vec4 col = min(texel * pct, texel);
+    gl_FragColor = col;
+}
 
 
 
@@ -158,15 +156,12 @@ void main(){
     float grain = 1.; //1. - cnoise(position * grainUpper + time) * cnoise(position * grainLower +time);
     
     grain *= circ * grainExpand;
-    vec3 color2 = mix(uColor1, uColor2, vColor);
-    vec4 col = mix(vec4(color2, 1.), circCol - (grain * grainMix), circ);
+    
+    vec4 col = mix(bgCol, circCol - (grain * grainMix), circ);
     color = col;
     
     
-    gl_FragColor = vec4(color2, 1.);
     gl_FragColor = color;
 }
-
-
 
 
