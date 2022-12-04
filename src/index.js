@@ -47,7 +47,7 @@ export default class Template {
         // let aspect = window.innerWidth / window.innerHeight;
         // this.camera = new THREE.OrthographicCamera(frustumSize* aspect / -2, frustumSize*aspect);
         this.camera.position.set(0, 0, 4);
-        // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.time = 0;
 
         this.raycaster = new THREE.Raycaster();
@@ -143,8 +143,8 @@ export default class Template {
             uniforms: {
                 time: { type: "f", value: 0 },
                 uTexture: { type: "t", value: null },
-                uColor1:{value: new THREE.Color('#246')},
-                uColor2:{value: new THREE.Color('#cf6')},
+                uColor1:{value: new THREE.Color('#114081')},
+                uColor2:{value: new THREE.Color('#5388B5')},
                 uMouse:{value: new THREE.Vector2(0,0)},
                 resolution: { type: "v4", value: new THREE.Vector4() },
                 uvRate: {

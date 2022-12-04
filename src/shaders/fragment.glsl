@@ -9,9 +9,15 @@ uniform vec3 uColor2;
 uniform vec3 uMouse;
 varying float vColor;
 varying vec3 vNormal;
+varying float vMouseNoise;
+
 
 void main(){
-    float mouse = 1.- distance(vUv, uMouse.xy);
-    vec3 color = mix(uColor1, uColor2, vColor) * mouse;
+    vec2 newUv = (vUv - vec2(0.5)) * 1. + vec2(0.5);
+    float mouse = 1. - distance(newUv, uMouse.xy);
+    mouse = smoothstep( 0.75, 1., mouse);
+    mouse = clamp(0.1, .5, mouse) * 2.8;
+    //float mo = mix( vMouseNoise, vColor ,mouse);
+    vec3 color = mix(uColor1, uColor2, vColor) + mix(uColor1, uColor2, vColor * mouse);
     gl_FragColor = vec4(color, 1.);
 }

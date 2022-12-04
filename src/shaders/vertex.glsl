@@ -6,6 +6,7 @@ uniform vec3 uColor2;
 uniform vec3 uMouse;
 varying float vColor;
 varying vec3 vNormal;
+varying float vMouseNoise;
 
 //	Simplex 3D Noise 
 //	by Ian McEwan, Ashima Arts
@@ -93,11 +94,13 @@ void main(){
 
     float offset = incline * mix(-.25, .25, uv.y);
 
-    float noise = snoise(vec3(noisecoord.x + time * 0.2, noisecoord.y + time * 0.2, time * 0.1));
+    float noise = snoise(vec3(noisecoord.x + time * 0.1, noisecoord.y + time * 0.1, time * 0.2) * 1.3)                                                                                             ;
     noise = max( 0., noise);
     vColor = noise;
+    vMouseNoise = snoise(vec3(uMouse.x + time * 0.1, uMouse.y + time * 0.1, + time * 0.1));
 
-    vec3 pos = vec3(position.x, position.y, position.z + noise + tilt + incline + offset) + distance(uv, uMouse.xy);
+    vec2 mixture = mix(uMouse.xy, position.xy, noise);
+    vec3 pos = vec3(position.x, position.y, position.z * noise * 0.2 + tilt + incline + offset);
     // pos.y += 0.1 * (sin(pos.y * 20. + time) * 0.5+ 0.5);
     
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
