@@ -96,7 +96,7 @@ void main(){
 
     float noise = snoise(vec3(noisecoord.x + time * 0.1, noisecoord.y + time * 0.1, time * 0.2) * 1.3)                                                                                             ;
     noise = max( 0., noise);
-    vColor = noise;
+    vColor = noise* 1.2;
     vMouseNoise = snoise(vec3(uMouse.x + time * 0.1, uMouse.y + time * 0.1, + time * 0.1));
 
     vec2 mixture = mix(uMouse.xy, position.xy, noise);

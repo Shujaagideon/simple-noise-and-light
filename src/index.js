@@ -47,7 +47,7 @@ export default class Template {
         // let aspect = window.innerWidth / window.innerHeight;
         // this.camera = new THREE.OrthographicCamera(frustumSize* aspect / -2, frustumSize*aspect);
         this.camera.position.set(0, 0, 4);
-        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        // this.controls = new OrbitControls(this.camera, this.renderer.domElement);
         this.time = 0;
 
         this.raycaster = new THREE.Raycaster();
