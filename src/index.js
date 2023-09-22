@@ -75,7 +75,7 @@ export default class Template {
                     value: 0
                 },
                 background: {
-                    value: new THREE.Color("#E4DED5")
+                    value: new THREE.Color("#f1f5f9")
                 },
                 colorOpacity: {
                     value: .65
@@ -236,10 +236,10 @@ export default class Template {
                     value: new THREE.Color("#E4DED5")
                 },
                 uColor1: {
-                    value: new THREE.Color("#114081")
+                    value: new THREE.Color("#cbd5e1")
                 },
                 uColor2: {
-                    value: new THREE.Color("#5388B5")
+                    value: new THREE.Color("#f8fafc")
                 },
                 colorOpacity: {
                     value: .65
