@@ -84,9 +84,6 @@ export default class Template {
             },
             side: THREE.DoubleSide,
             uniforms: {
-                tDiffuse: {
-                    value: null
-                },
                 distort: {
                     value: 0
                 },
@@ -131,9 +128,6 @@ export default class Template {
                 },
                 circleSize: {
                     value: .15
-                },
-                grainExpand: {
-                    value: 20
                 },
                 grainMix: {
                     value: .15

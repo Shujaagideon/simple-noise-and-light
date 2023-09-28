@@ -2,7 +2,6 @@ uniform vec3 uColor1;
 uniform vec3 uColor2;
 varying float vColor;
 uniform float time;
-uniform sampler2D tDiffuse; 
 uniform vec2 resolution;
 varying vec2 vUv;
 uniform vec2 uMouse;
@@ -14,7 +13,6 @@ uniform float warpMultiply;
 uniform float circBlurMin;
 uniform float circBlurMax;
 uniform float circleSize;
-uniform float grainExpand;
 uniform float grainMix;
 
 int uType;
@@ -65,7 +63,6 @@ void main(){
     vec2 position = vUv;
 
     //define colors
-    vec4 bgCol = texture2D(tDiffuse, position);
     vec4 circCol = vec4(background, colorOpacity);
     
     //warp uv space to make the circle warp based on uv coord and time
@@ -73,15 +70,11 @@ void main(){
     
     //draw circle
     float circ = circle2(warpUv, uMouse, resolution.x * uVelo * circleSize, circBlurMin + uVelo * circBlurMax);
-    float grain = 1.; 
     
-    grain *= circ * grainExpand;
     vec3 color2 = mix(uColor1, uColor2, vColor);
-    vec4 col = mix(vec4(color2, 1.), circCol - (grain * grainMix), circ);
-    color = col;
+    color = mix(vec4(color2, 1.), circCol, circ);
     
     
-    gl_FragColor = vec4(color2, 1.);
     gl_FragColor = color;
 }
 
